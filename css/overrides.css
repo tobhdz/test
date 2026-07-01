@@ -107,3 +107,70 @@ only screen and (max-width: 735px) and (min-resolution: 144dpi) {
     float: none;
     width: 100%;
 }
+
+/* ==========================================================================
+   Exercise 3
+   ========================================================================== */
+
+/*
+ * Flexbox fallback for browsers without CSS Grid.
+ *
+ * These rules live outside @supports so they actually reach IE 10/11
+ * (IE doesn't recognise @supports and would skip the entire block).
+ * Grid is restored below for modern browsers via @supports (display: grid).
+ */
+
+.gallery-grid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+/* Column widths — follows the flex: 0 0 X% + max-width pattern
+   Bootstrap uses for .col-* in this same project */
+.grid-third {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.333%;
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+}
+
+.grid-two-third {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 66.667%;
+    flex: 0 0 66.667%;
+    max-width: 66.667%;
+}
+
+.grid-half {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+@media only screen and (max-width: 736px) {
+    .grid-third,
+    .grid-two-third,
+    .grid-half {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* Restore grid where the browser supports it */
+@supports (display: grid) {
+    .gallery-grid {
+        display: grid;
+    }
+
+    .grid-third,
+    .grid-two-third,
+    .grid-half {
+        max-width: none;
+    }
+}

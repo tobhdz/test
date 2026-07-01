@@ -13,3 +13,11 @@
 - Fixed it by giving each timeline card its own `col-12 col-lg-6` wrapper. Now flex-wrap on the `.row` naturally flows them in source order: two per row on large screens, one per row on mobile.
 - Cleared `float: left` from `.timeline-item` in overrides since the original float is no longer needed once each card lives inside its own column, and it was preventing the cards from filling their container width.
 - Considered a CSS Grid rewrite for the timeline container, but discarded it because the project already relies on Bootstrap's grid throughout, and introducing a second layout system for a fix this localized would add unnecessary complexity without any functional benefit.
+
+# Exercise 3 - Gallery fallback for older browsers
+
+- The gallery in `style.css` relies on `display: grid` with `grid-column` spans to lay out photos in 1/3, 2/3, and 1/2 pairs. Browsers without grid support (IE 11, older mobile webviews) get no layout at all and the photos just stack at full width without the intended proportions.
+- Created a flexbox fallback that mimics the grid layout (`33.333%`, `66.667%`, `50%`), including `-ms-*` prefixes for IE10/11.
+- Placed the fallback rules *outside* of any `@supports` block. If they were inside `@supports (not (display: grid))`, IE would discard the entire block since it doesn't recognize the `@supports` at-rule, defeating the purpose of the `-ms-*` prefixes. Modern browsers get their grid layout restored further down via `@supports (display: grid)`.
+- Used the `flex: 0 0 X%` plus `max-width: X%` pattern for the columns to match Bootstrap's own `.col-*` implementation used elsewhere in the project. This prevents sub-pixel rounding issues and flex shrink edge-cases that can happen when using plain `width: X%`.
+- Omitted the `.small-hide` mobile rule from the override since it already exists in `style.css` and its `display: none` behavior works independently of whether the parent is flex or grid.
