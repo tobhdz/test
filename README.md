@@ -9,10 +9,11 @@
 
 # Exercise 2 - Timeline ordering
 
-- The original markup grouped items 1–3 in one `col-lg-6` and 4–6 in another. On desktop the two columns sat side by side, so the visual reading order was 1 4 / 2 5 / 3 6 instead of the expected 1 2 / 3 4 / 5 6.
-- Fixed it by giving each timeline card its own `col-12 col-lg-6` wrapper. Now flex-wrap on the `.row` naturally flows them in source order: two per row on large screens, one per row on mobile.
-- Cleared `float: left` from `.timeline-item` in overrides since the original float is no longer needed once each card lives inside its own column, and it was preventing the cards from filling their container width.
-- Considered a CSS Grid rewrite for the timeline container, but discarded it because the project already relies on Bootstrap's grid throughout, and introducing a second layout system for a fix this localized would add unnecessary complexity without any functional benefit.
+- The original markup grouped items 1–3 in one `col-lg-6` and 4–6 in another. Two columns side by side gave a 1 4 / 2 5 / 3 6 reading order instead of the 1 2 / 3 4 / 5 6 the brief's own diagram shows.
+- First try was keeping the masonry-style packing by interleaving the DOM and reordering with CSS for mobile. Dropped it once I noticed the brief's diagram is fixed row pairs, not independent columns, so masonry was never the goal.
+- Real masonry with guaranteed left-to-right order isn't something CSS does well on its own, and JS is off the table per the brief. Went with one `col-12 col-lg-6` per card in plain source order instead; flex-wrap on the row handles two per row on desktop and one per row on mobile with no extra logic.
+- Cleared `float: left` from `.timeline-item`, left over from when cards shared a column, since it was keeping cards from filling their new wrapper.
+- Cards of different lengths don't line up at the bottom within a row. Left it alone to keep the card style untouched, per the extra points.
 
 # Exercise 3 - Gallery fallback for older browsers
 
