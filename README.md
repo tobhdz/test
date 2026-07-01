@@ -9,11 +9,10 @@
 
 # Exercise 2 - Timeline ordering
 
-- The bug was essentially an HTML grouping mistake rather than a CSS ordering issue. The original code grouped items 1-2-3 in one `col-lg-6` and 4-5-6 in another, causing a 1 4 / 2 5 / 3 6 reading sequence.
-- I evaluated two approaches to fix this:
-  - **Option A:** Give each card its own `col-12 col-lg-6` wrapper. While this immediately fixes the order, Bootstrap's default flex behavior stretches the rows and creates awkward dead space under shorter cards, breaking the dense masonry aesthetic.
-  - **Option B (Chosen):** Keep the two original floating columns but interleave the items in the DOM (1, 3, 5 on the left; 2, 4, 6 on the right).
-- Opting for the interleaving approach restores the correct left-to-right visual sequence while perfectly preserving the original masonry packing, as the columns flow independently. No CSS overrides were needed; fixing the HTML structure was the cleanest path.
+- The original markup grouped items 1–3 in one `col-lg-6` and 4–6 in another. On desktop the two columns sat side by side, so the visual reading order was 1 4 / 2 5 / 3 6 instead of the expected 1 2 / 3 4 / 5 6.
+- Fixed it by giving each timeline card its own `col-12 col-lg-6` wrapper. Now flex-wrap on the `.row` naturally flows them in source order: two per row on large screens, one per row on mobile.
+- Cleared `float: left` from `.timeline-item` in overrides since the original float is no longer needed once each card lives inside its own column, and it was preventing the cards from filling their container width.
+- Considered a CSS Grid rewrite for the timeline container, but discarded it because the project already relies on Bootstrap's grid throughout, and introducing a second layout system for a fix this localized would add unnecessary complexity without any functional benefit.
 
 # Exercise 3 - Gallery fallback for older browsers
 
