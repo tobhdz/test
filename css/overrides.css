@@ -1,18 +1,21 @@
-/* Exercise 1 */
+/* ==========================================================================
+   Exercise 1
+   ========================================================================== */
 
+/* Flex container to display both heroes side-by-side on desktop */
 .hero-group {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     height: 100vh;
-    height: 100dvh;
+    height: 100dvh; /* dvh fallback for dynamic mobile viewports */
 }
 
+/* Individual hero section sizing and alignment */
 .hero-group .hero {
     width: 50%;
     height: 100%;
 }
 
+/* Overrides style.css dimensions and forces responsive cover behavior */
 .hero-group .hero-image {
     width: 100%;
     height: 100%;
@@ -21,23 +24,28 @@
     background-repeat: no-repeat;
 }
 
+/* Text spacing & layout limits inside the hero columns */
 .hero-group .hero-copy {
     max-width: 70%;
     padding-left: 16px;
     padding-right: 16px;
 }
 
+/* Prevent unbalanced wrapping in headings for cleaner aesthetics */
 .hero-group .hero-copy h2,
 .hero-group .hero-copy h3 {
     text-wrap: balance;
 }
 
+/* ==========================================================================
+   Space Exploration Background Images
+   ========================================================================== */
+
 .hero-unit-space-exploration .hero-image {
     background-image: url("/images/final-frontier_large.jpg");
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min-resolution: 144dpi) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .hero-unit-space-exploration .hero-image {
         background-image: url("/images/final-frontier_large_2x.jpg");
     }
@@ -69,48 +77,12 @@ only screen and (max-width: 735px) and (min-resolution: 144dpi) {
     }
 }
 
-.hero-unit-moon-exploration .hero-image {
-    background-image: url("/images/luna_large.jpg");
-}
-
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min-resolution: 144dpi) {
-    .hero-unit-moon-exploration .hero-image {
-        background-image: url("/images/luna_large_2x.jpg");
-    }
-}
-
-@media only screen and (max-width: 1068px) {
-    .hero-unit-moon-exploration .hero-image {
-        background-image: url("/images/luna_medium.jpg");
-    }
-}
-
-@media only screen and (max-width: 1068px) and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (max-width: 1068px) and (min-resolution: 144dpi) {
-    .hero-unit-moon-exploration .hero-image {
-        background-image: url("/images/luna_medium_2x.jpg");
-    }
-}
-
-@media only screen and (max-width: 735px) {
-    .hero-unit-moon-exploration .hero-image {
-        background-image: url("/images/luna_small.jpg");
-    }
-}
-
-@media only screen and (max-width: 735px) and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (max-width: 735px) and (min-resolution: 144dpi) {
-    .hero-unit-moon-exploration .hero-image {
-        background-image: url("/images/luna_small_2x.jpg");
-    }
-}
+/* ==========================================================================
+   Mobile Layout Adjustments (Breakpoint: 735px)
+   ========================================================================== */
 
 @media only screen and (max-width: 735px) {
     .hero-group {
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
         flex-direction: column;
         height: auto;
     }
